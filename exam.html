@@ -64,7 +64,7 @@
           return (
             <form onSubmit={this.handleSubmit}>
               <div id="word" style={{"fontSize": "100"}}>{this.getWord()}</div>
-              Answer: <input ref="answer" type="text" onChange={this.onChange} value={this.state.answer} disabled={this.getWord() === FINISHED}></input><button disabled={this.getWord() === FINISHED}>Next</button>
+              <input ref="answer" type="text" onChange={this.onChange} value={this.state.answer} disabled={this.getWord() === FINISHED}></input><button disabled={this.getWord() === FINISHED}>Next</button>
               <div>
                 <h3>Result</h3>
                 {this.getResults()}
