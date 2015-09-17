@@ -19,6 +19,7 @@
         getInitialState: function() {
           return {
             count: 0,
+            answer: "",
             results: []
           }
         },
@@ -34,21 +35,36 @@
           };
           return <ol>{this.state.results.map(createItem)}</ol>;
         },
+        onChange: function(e) {
+          this.setState({
+            answer: e.target.value
+          });
+        },
         handleSubmit: function(e) {
           e.preventDefault();
 
-          var result = this.getWord();
+          var word = this.getWord();
+          var answer = this.state.answer;
+          var actualAnswer = WORD_2_PRONUNCIATION[word];
+          var result = word + " (" + actualAnswer + ") => " + answer;
 
           this.setState({
             count: this.state.count + 1,
+            answer: "",
             results: this.state.results.concat(result)
           });
+
+          var answerDom = this.refs.answer.getDOMNode();
+          answerDom.focus();
+        },
+        componentDidMount: function() {
+          this.refs.answer.getDOMNode().focus();
         },
         render: function() {
           return (
             <form onSubmit={this.handleSubmit}>
               <div id="word" style={{"fontSize": "100"}}>{this.getWord()}</div>
-              <button disabled={this.getWord() === FINISHED}>Next</button>
+              Answer: <input ref="answer" type="text" onChange={this.onChange} value={this.state.answer} disabled={this.getWord() === FINISHED}></input><button disabled={this.getWord() === FINISHED}>Next</button>
               <div>
                 <h3>Result</h3>
                 {this.getResults()}
