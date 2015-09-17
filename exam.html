@@ -113,7 +113,7 @@
           var createItem = function(itemText, index) {
             return <li>{itemText}</li>;
           };
-          return <ol>{this.state.results.map(createItem)}</ol>;
+          return <ul>{this.state.results.map(createItem)}</ul>;
         },
         onChange: function(e) {
           this.setState({
@@ -131,7 +131,7 @@
           var states = {
             count: this.state.count + 1,
             answer: "",
-            results: this.state.results.concat(result)
+            results: this.state.results.concat(result).reverse()
           };
           if (answer === actualAnswer) {
             states.correctCount = this.state.correctCount + 1;
