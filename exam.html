@@ -1,0 +1,48 @@
+<html>
+  <head>
+    <meta content="text/html;charset=utf-8" http-equiv="Content-Type"></meta>
+    <meta content="utf-8" http-equiv="encoding"></meta>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/react/0.13.3/react.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/react/0.13.3/JSXTransformer.js"></script>
+  </head>
+  <body>
+    <script type="text/jsx">
+      var FINISHED = "Done";
+      var WORD_2_PRONUNCIATION = {
+        老: 'lau',
+        送: 'song',
+        水: 'sui'
+      };
+      var words = Object.keys(WORD_2_PRONUNCIATION);
+
+      var Exam = React.createClass({
+        getInitialState: function() {
+          return {
+            count: 0
+          }
+        },
+        getWord: function() {
+          if (words.length <= this.state.count) {
+            return FINISHED;
+          }
+          return words[this.state.count];
+        },
+        handleSubmit: function(e) {
+          e.preventDefault();
+
+          this.setState({count: this.state.count + 1});
+        },
+        render: function() {
+          return (
+            <form onSubmit={this.handleSubmit}>
+              <div id="word" style={{"fontSize": "100"}}>{this.getWord()}</div>
+              <button disabled={this.getWord() === FINISHED}>Next</button>
+            </form>
+          );
+        }
+      });
+
+      React.render(<Exam/>, document.body);
+    </script>
+  </body>
+</html>
