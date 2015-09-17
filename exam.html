@@ -98,6 +98,8 @@
           return {
             count: 0,
             answer: "",
+            correctCount: 0,
+            wrongCount: 0,
             results: []
           }
         },
@@ -126,14 +128,19 @@
           var actualAnswer = WORD_2_PRONUNCIATION[word];
           var result = word + " (" + actualAnswer + ") => " + answer;
 
-          this.setState({
+          var states = {
             count: this.state.count + 1,
             answer: "",
             results: this.state.results.concat(result)
-          });
+          };
+          if (answer === actualAnswer) {
+            states.correctCount = this.state.correctCount + 1;
+          } else {
+            states.wrongCount = this.state.wrongCount + 1;
+          }
 
-          var answerDom = this.refs.answer.getDOMNode();
-          answerDom.focus();
+          this.setState(states);
+          this.refs.answer.getDOMNode().focus();
         },
         componentDidMount: function() {
           this.refs.answer.getDOMNode().focus();
@@ -144,7 +151,7 @@
               <div id="word" style={{"fontSize": "100"}}>{this.getWord()}</div>
               <input ref="answer" type="text" onChange={this.onChange} value={this.state.answer} disabled={this.getWord() === FINISHED}></input><button disabled={this.getWord() === FINISHED}>Next</button>
               <div>
-                <h3>Result</h3>
+                <h3>Result ({words.length - this.state.count}/<span style={{color: "green"}}>{this.state.correctCount}</span>/<span style={{color: "red"}}>{this.state.wrongCount}</span>)</h3>
                 {this.getResults()}
               </div>
             </form>
