@@ -18,7 +18,8 @@
       var Exam = React.createClass({
         getInitialState: function() {
           return {
-            count: 0
+            count: 0,
+            results: []
           }
         },
         getWord: function() {
@@ -27,16 +28,31 @@
           }
           return words[this.state.count];
         },
+        getResults: function() {
+          var createItem = function(itemText, index) {
+            return <li>{itemText}</li>;
+          };
+          return <ol>{this.state.results.map(createItem)}</ol>;
+        },
         handleSubmit: function(e) {
           e.preventDefault();
 
-          this.setState({count: this.state.count + 1});
+          var result = this.getWord();
+
+          this.setState({
+            count: this.state.count + 1,
+            results: this.state.results.concat(result)
+          });
         },
         render: function() {
           return (
             <form onSubmit={this.handleSubmit}>
               <div id="word" style={{"fontSize": "100"}}>{this.getWord()}</div>
               <button disabled={this.getWord() === FINISHED}>Next</button>
+              <div>
+                <h3>Result</h3>
+                {this.getResults()}
+              </div>
             </form>
           );
         }
