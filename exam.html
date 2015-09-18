@@ -113,7 +113,7 @@
           var createItem = function(itemText, index) {
             return <li>{itemText}</li>;
           };
-          return <ul>{this.state.results.map(createItem)}</ul>;
+          return <ol>{this.state.results.map(createItem)}</ol>;
         },
         onChange: function(e) {
           this.setState({
@@ -131,7 +131,7 @@
           var states = {
             count: this.state.count + 1,
             answer: "",
-            results: this.state.results.concat(result).reverse()
+            results: this.state.results.concat(result)
           };
           if (answer === actualAnswer) {
             states.correctCount = this.state.correctCount + 1;
@@ -148,12 +148,10 @@
         render: function() {
           return (
             <form onSubmit={this.handleSubmit}>
+              {this.getResults()}
               <div id="word" style={{"fontSize": "50"}}>{this.getWord()}</div>
               <input ref="answer" type="text" onChange={this.onChange} value={this.state.answer} disabled={this.getWord() === FINISHED}></input><button disabled={this.getWord() === FINISHED}>Next</button>
-              <div>
-                <h3>Result ({words.length - this.state.count}/<span style={{color: "green"}}>{this.state.correctCount}</span>/<span style={{color: "red"}}>{this.state.wrongCount}</span>)</h3>
-                {this.getResults()}
-              </div>
+              <h3>Result ({words.length - this.state.count}/<span style={{color: "green"}}>{this.state.correctCount}</span>/<span style={{color: "red"}}>{this.state.wrongCount}</span>)</h3>
             </form>
           );
         }
