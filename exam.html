@@ -150,8 +150,7 @@
             <form onSubmit={this.handleSubmit}>
               {this.getResults()}
               <div id="word" style={{"fontSize": "50"}}>{this.getWord()}</div>
-              <input ref="answer" type="text" onChange={this.onChange} value={this.state.answer} disabled={this.getWord() === FINISHED}></input><button disabled={this.getWord() === FINISHED}>Next</button>
-              <h3>Result ({words.length - this.state.count}/<span style={{color: "green"}}>{this.state.correctCount}</span>/<span style={{color: "red"}}>{this.state.wrongCount}</span>)</h3>
+              <input ref="answer" type="text" onChange={this.onChange} value={this.state.answer} disabled={this.getWord() === FINISHED}></input> <button disabled={this.getWord() === FINISHED}>Next ({words.length - this.state.count}/<span style={{color: "green"}}>{this.state.correctCount}</span>/<span style={{color: "red"}}>{this.state.wrongCount}</span>)</button>
             </form>
           );
         }
