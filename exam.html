@@ -5,6 +5,7 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/react/0.13.3/react.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/react/0.13.3/JSXTransformer.js"></script>
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
   </head>
   <body>
     <script type="text/jsx">
@@ -14,7 +15,7 @@
         mimeType: 'text/plain',
         async: false
       }).responseText);
-      var words = Object.keys(WORD_2_PRONUNCIATION);
+      var words = _.shuffle(Object.keys(WORD_2_PRONUNCIATION));
 
       var Exam = React.createClass({
         getInitialState: function() {
